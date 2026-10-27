@@ -2626,12 +2626,13 @@ html,body{overflow-x:hidden}
   #chips .chip{max-width:100%}
 }
 
+#ptable td:last-child{white-space:nowrap}
 #vis-container .lvin{width:78px;height:36px;box-sizing:border-box;text-align:right;padding:0 8px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface-2);color:var(--text-primary);font-size:15px;font-family:inherit}
 .lvt{font-size:11px;color:var(--text-secondary);margin-top:2px}
 @media (max-width:640px){
   #ptable td:nth-child(5)::before{content:"วันลาปีนี้ (วัน)";display:block;font-size:12px;color:var(--text-secondary);margin-bottom:2px}
-  #ptable td:nth-child(5){grid-column:1/3!important;text-align:left!important;margin-top:6px}
-  #ptable td:nth-child(6){grid-column:3/4!important;align-self:end;text-align:right!important;margin-top:6px}
+  #ptable td:nth-child(5){grid-column:1/-1!important;text-align:left!important;margin-top:6px}
+  #ptable td:nth-child(6){grid-column:1/-1!important;display:flex!important;gap:8px;justify-content:flex-end;margin-top:8px}
   #vis-container .lvin{width:100%!important;max-width:140px;font-size:16px;text-align:left}
   #ptable{min-width:0!important;table-layout:auto!important}
   #ptable colgroup,#ptable thead{display:none!important}
@@ -2692,6 +2693,9 @@ html,body{overflow-x:hidden}
   <div id="addbox" style="display:none;margin:0 0 14px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
       <div style="flex:1 1 240px;min-width:0"><div class="flab" style="margin-bottom:6px">ชื่อ-สกุล</div><input type="text" id="newn" class="fin" placeholder="เช่น นางสาวสมหญิง ใจดี"></div>
+      <div style="flex:1 1 240px;min-width:0"><div class="flab" style="margin-bottom:6px">ชื่อบริษัท</div><input type="text" id="newco" class="fin" placeholder="พิมพ์ชื่อบริษัท เช่น บริษัท ตัวอย่าง จำกัด" autocomplete="off"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:8px">
       <div style="flex:0 0 150px"><div class="flab" style="margin-bottom:6px">เดือนที่เข้าทำงาน</div><select id="newm" class="fin"></select></div>
       <div style="flex:0 0 110px"><div class="flab" style="margin-bottom:6px">ปี พ.ศ.</div><select id="newy" class="fin"></select></div>
       <button class="fbtn solid" id="cSave" style="font-size:15px">เพิ่มชื่อ</button>
@@ -2756,9 +2760,9 @@ html,body{overflow-x:hidden}
   <thead><tr><th>ปี พ.ศ.</th><th>ผู้รับจ้าง</th><th class="r">ยอดจ่ายรวม (บาท)</th><th style="padding-left:14px">สัดส่วนของยอดรวม</th></tr></thead><tbody id="ytb"></tbody></table>
   <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 8px;flex-wrap:wrap;gap:8px">
     <span style="font-weight:500;font-size:14px"><svg class="ti-s" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 9-5.2"/><path d="M18 13v8M20.5 14.8h-3.2a1.6 1.6 0 0 0 0 3.2h1.4a1.6 1.6 0 0 1 0 3.2h-3.2"/></svg> รายบุคคล <span id="ptYear" style="font-weight:400;color:var(--text-secondary)"></span></span>
-    <span><button class="sm" id="calcAll"><svg class="ti-s" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg> คำนวณทุกคน</button> <button class="sm" id="calcClr">ล้างผล</button></span>
+    <span><button class="sm" id="calcAll"><svg class="ti-s" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg> คำนวณทุกคน</button> <button class="sm" id="calcClr">ล้างผล</button> <button class="sm" id="resetPP" title="คืนรายชื่อเป็นชุดเดิม">คืนรายชื่อเดิม</button></span>
   </div>
-  <div class="tscroll"><table id="ptable" style="width:100%;table-layout:fixed"><colgroup><col><col style="width:96px"><col style="width:96px"><col style="width:116px"><col style="width:130px"><col style="width:84px"></colgroup>
+  <div class="tscroll"><table id="ptable" style="width:100%;table-layout:fixed"><colgroup><col><col style="width:96px"><col style="width:96px"><col style="width:116px"><col style="width:130px"><col style="width:150px"></colgroup>
   <thead><tr><th>ผู้รับจ้าง</th><th class="r">เริ่มจ้าง</th><th class="r">จำนวนเดือนทั้งหมด</th><th class="r">ยอดสะสม (บาท)</th><th class="r">วันลาปี <span id="lvYear"></span> (วัน)</th><th></th></tr></thead><tbody id="ptb"></tbody></table></div>
   <div style="font-size:13px;color:var(--text-secondary);margin-top:8px">คำนวณจากค่าบริการต่อเดือน (ม.ค. 10,255 บาท เดือนอื่น 10,250 บาท) คูณจำนวนเดือนที่นับ โดยนับตั้งแต่เดือนที่เริ่มจ้างของแต่ละคน (ดูคอลัมน์ "เริ่มจ้าง" โดยนับเดือนที่เริ่มเป็นเดือนเต็ม) ถึงเดือนปัจจุบันตามวันที่ของเครื่อง ทุกคนใช้ค่าบริการเท่ากัน ช่อง "ค่าบริการต่อเดือน" จะเปลี่ยนตามเดือนที่เลือก (ม.ค. 10,255 บาท เดือนอื่น 10,250 บาท) และแก้ไขตัวเลขได้</div>
 </div>
@@ -2821,6 +2825,11 @@ const CO1='บริษัทโรงงานแม่รวย จำกั�
 const CO2='บริษัทโคคุโบะร็อกไอซ์ (ประเทศไทย) จำกัด';
 const BOSS=[['นางสาวปฐมาภรณ์ ชัยเพ็ชร์','เภสัชกรชำนาญการ'],['นางสาวสกาวพรรณ อวัสดาถาวร','นักสาธารณสุขชำนาญการ'],['นางจันทร์ทิพย์ แก้วชูเชิด','พยาบาลวิชาชีพชำนาญการ'],['นางกัญลญารัตน์ วัชรธนากรณ์','พยาบาลวิชาชีพชำนาญการพิเศษ'],['นางสาวภัคจิรา จันทร์สีทอง','เจ้าพนักงานธุรการชำนาญงาน'],['นายสุภาพ ฟักเอม','เจ้าพนักงานเภสัชกรรมชำนาญงาน']];
 const PP=[['นางสาวกัญญารัตน์ มุขแจ้ง',CO1,1],['นางสาวกฤชภร เอี่ยมสุวรรณ',CO1,0],['นางสมรัตน์ กลิ่นปาน',CO1,3],['นางรณิดา บุญธนโอฬาร',CO1,2],['นายเอกชัย คร้ามสมอ',CO2,5],['นายธนธรณ์ มีเนตร',CO1,4],['นายไพรวัน เพชรร้อน',CO1,4]].map((x,i)=>({n:x[0],col:COL[i],co:x[1],b:x[2],s:(x[0]==='นางสาวกฤชภร เอี่ยมสุวรรณ'||x[0]==='นายธนธรณ์ มีเนตร')?2025*12+1:2026*12}));
+const KEY='sr_people_v2',KEY1='sr_added_people_v1';
+function savePP(){try{localStorage.setItem(KEY,JSON.stringify(PP.map(p=>({n:p.n,co:p.co,s:p.s,b:p.b,col:p.col}))));}catch(e){}}
+try{const raw=localStorage.getItem(KEY),okx=x=>x&&typeof x.n==='string'&&x.n&&typeof x.co==='string'&&Number.isFinite(x.s);
+if(raw){const sv=JSON.parse(raw);if(Array.isArray(sv)){const ok=sv.filter(okx);if(ok.length){PP.length=0;ok.forEach(x=>PP.push({n:x.n,col:(typeof x.col==='string'&&x.col)?x.col:COL[PP.length%COL.length],co:x.co,b:(Number.isInteger(x.b)&&x.b>=0&&x.b<BOSS.length)?x.b:4,s:x.s}));}}}
+else{const sv=JSON.parse(localStorage.getItem(KEY1)||'[]');if(Array.isArray(sv))sv.forEach(x=>{if(okx(x)&&!PP.some(p=>p.n===x.n))PP.push({n:x.n,col:COL[PP.length%COL.length],co:x.co,b:4,s:x.s});});}}catch(e){}
 const SV=['บริการดูแลการจราจรและยานพาหนะ','บริการรักษาความปลอดภัย','บริการให้ข้อมูลและอำนวยความสะดวกแก่ผู้มารับบริการ','บริการดูแลรักษาภูมิทัศน์และสิ่งแวดล้อม','บริการสนับสนุนการปฏิบัติงานของเจ้าหน้าที่'];
 const FIX=[[0,1,'วันขึ้นปีใหม่'],[3,6,'วันจักรี'],[3,13,'วันสงกรานต์'],[3,14,'วันสงกรานต์'],[3,15,'วันสงกรานต์'],[4,1,'วันแรงงานแห่งชาติ'],[4,4,'วันฉัตรมงคล'],[5,3,'วันเฉลิมฯ สมเด็จพระราชินี'],[6,28,'วันเฉลิมพระชนมพรรษา ร.10'],[7,12,'วันแม่แห่งชาติ'],[9,13,'วันคล้ายวันสวรรคต ร.9'],[9,23,'วันปิยมหาราช'],[11,5,'วันพ่อแห่งชาติ'],[11,10,'วันรัฐธรรมนูญ'],[11,31,'วันสิ้นปี']];
 const BUD={2025:[['2025-02-12','วันมาฆบูชา'],['2025-05-11','วันวิสาขบูชา'],['2025-07-10','วันอาสาฬหบูชา'],['2025-07-11','วันเข้าพรรษา']],2026:[['2026-03-03','วันมาฆบูชา'],['2026-05-31','วันวิสาขบูชา'],['2026-07-29','วันอาสาฬหบูชา'],['2026-07-30','วันเข้าพรรษา']],2027:[['2027-02-21','วันมาฆบูชา'],['2027-05-20','วันวิสาขบูชา'],['2027-07-18','วันอาสาฬหบูชา'],['2027-07-19','วันเข้าพรรษา']]};
@@ -2831,7 +2840,7 @@ const H=[];const GEN=new Set();
 function genOne(y){if(GEN.has(y))return;GEN.add(y);const base=FIX.map(f=>[y+'-'+p2(f[0]+1)+'-'+p2(f[1]),f[2]]).concat(BUD[y]||[]);const have=new Set(H.map(h=>h.d));const add=[];base.forEach(b=>{if(!have.has(b[0])){add.push({d:b[0],n:b[1],on:true});have.add(b[0]);}});add.sort((a,b)=>a.d<b.d?-1:1);add.slice().forEach(h=>{const dt=pd(h.d),w=dt.getDay();if(w===0||w===6){let c=new Date(dt);do{c.setDate(c.getDate()+1);}while(c.getDay()===0||c.getDay()===6||have.has(ds(c)));have.add(ds(c));add.push({d:ds(c),n:'ชดเชย'+h.n,on:true});}});add.forEach(h=>H.push(h));}
 function ensure(y){genOne(y-1);genOne(y);}
 const NOW=new Date(),CY=NOW.getFullYear(),CM=NOW.getMonth();
-const st={c:new Set([0,1,2,3,4,5,6]),y:Math.max(2025,CY),m:new Set([CY>=2025?CM:0]),ex:new Set(),pg:0,pk:null,calc:new Set()};
+const st={c:new Set(PP.map((p,i)=>i)),y:Math.max(2025,CY),m:new Set([CY>=2025?CM:0]),ex:new Set(),pg:0,pk:null,calc:new Set()};
 const $=id=>document.getElementById(id);
 const be=()=>st.y+543;
 const yy=()=>String(be()).slice(2);
@@ -2857,7 +2866,7 @@ const TT='text-align:center;font-size:14pt;font-weight:bold;';
 const T1='text-align:center;font-size:20pt;font-weight:bold;';
 const F1='font-size:16pt;font-weight:normal;';
 function pageOne(c,m,S){const nm=PP[c].n,mn=TM[m],Y=be(),a=amtFor(m),ld=lastW(m,S);
-const sig=()=>'<table width="100%" style="border-collapse:collapse"><tr><td width="60%"></td><td align="center" style="'+F1+'text-align:center;white-space:nowrap">ลงชื่อ................................<br>('+esc(nm)+')<br>ผู้รับจ้าง</td></tr></table>';
+const sig=()=>'<table width="100%" style="border-collapse:collapse"><tr><td width="40%"></td><td width="60%" align="center" style="'+F1+'text-align:center;white-space:nowrap">ลงชื่อ...............................................<br>('+esc(nm)+')<br>ผู้รับจ้าง</td></tr></table>';
 return '<div class="WordSection1"><p style="'+T1+'margin:0 0 10pt">ใบส่งมอบบริการ</p><p style="'+F1+'text-align:right;margin:0 0 6pt">วันที่ '+ld+' '+mn+' พ.ศ. '+Y+'</p><p style="'+F1+'margin:0 0 4pt">เรื่อง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ส่งมอบงานตามสัญญาจ้างเหมาบริการ</p><p style="'+F1+'margin:0 0 4pt">เรียน&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้จัดการฝ่ายทรัพยากรบริหารงานบุคคล '+esc(PP[c].co)+'</p><p style="'+F1+'text-indent:1.25cm;margin:0 0 4pt">ข้าพเจ้า '+esc(nm)+' ได้ให้บริการ ณ โรงพยาบาลพรหมพิราม เดือน '+mn+' พ.ศ. '+Y+' ตามที่ผู้ว่าจ้างได้กำหนด (รายละเอียดตามเอกสารแนบ) จึงขอเบิกเงินจำนวน '+fmt(a)+' บาท ('+baht(a)+') โดยยินยอมให้หักภาษี ณ ที่จ่าย ตามอัตราที่กฎหมายกำหนด</p><p style="'+F1+'text-indent:1.25cm;margin:0 0 8pt">จึงเรียนมาเพื่อโปรดพิจารณา</p>'+sig()+'<p style="border-top:1px solid #000;font-size:4pt;line-height:4pt;margin:10pt 0 10pt">&nbsp;</p><p style="'+T1+'margin:0 0 10pt">ยืนยันการรับเงิน</p><p style="'+F1+'text-indent:1.25cm;margin:0 0 10pt">ข้าพเจ้า '+esc(nm)+' ผู้รับจ้าง ได้รับเงินค่าบริการประจำเดือน '+mn+' พ.ศ. '+Y+' เป็นจำนวนเงิน '+fmt(a)+' บาท ('+baht(a)+')</p>'+sig()+'<p style="'+F1+'margin:14pt 0 0">หมายเหตุ : ใบยืนยันการรับเงินนี้จะสมบูรณ์ต่อเมื่อทางบริษัทฯ ได้โอนเงินไว้เป็นที่เรียบร้อยแล้ว</p></div>';}
 function pageTwo(c,m,S){const nm=PP[c].n,n=dim(m),f=$('fill').value,wd=works(m,S),mn=TM[m],Y=be(),bs=bossFor(c);const B='border:1px solid #000;';
 const TK=(()=>{if(f!=='tick')return null;let sd=2166136261;const key=nm+'|'+Y+'|'+m;for(let k=0;k<key.length;k++){sd^=key.charCodeAt(k);sd=Math.imul(sd,16777619)>>>0;}
@@ -2882,6 +2891,12 @@ const selM=()=>st.m.size?[...st.m][0]:null;
 function syncAmt(){const m=selM();$('amt').value=(m===0?RJ:RO);$('amtM').textContent=m===null?'':'· '+TM[m];}
 const curIdx=()=>CY*12+CM;
 const LV={};
+let delArm=null,delTimer=null;
+function armDel(i){delArm=i;clearTimeout(delTimer);delTimer=setTimeout(()=>{delArm=null;rPay();},4000);rPay();}
+function removePerson(i){const mp=j=>j>i?j-1:j;PP.splice(i,1);
+const nLV={};for(const k in LV){const [c,y]=k.split('|'),ci=+c;if(ci===i)continue;nLV[mp(ci)+'|'+y]=LV[k];}
+for(const k in LV)delete LV[k];Object.assign(LV,nLV);
+st.c=new Set([...st.c].filter(j=>j!==i).map(mp));st.calc=new Set([...st.calc].filter(j=>j!==i).map(mp));st.ex=new Set();st.pk=null;st.pg=0;delArm=null;savePP();all();}
 const lvAll=i=>{let t=0;for(const k in LV){if(k.split('|')[0]==String(i))t+=Number(LV[k])||0;}return Math.round(t*100)/100;};
 document.addEventListener('input',e=>{const t=e.target;if(t&&t.dataset&&t.dataset.lv!==undefined){const i=t.dataset.lv,v=parseFloat(t.value);const k=i+'|'+st.y;if(isNaN(v)||v<=0)delete LV[k];else LV[k]=v;const o=document.getElementById('lvt'+i);if(o)o.textContent='รวมทุกปี '+lvAll(i)+' วัน';}});
 const endIdx=()=>curIdx()-($('incl').checked?0:1);
@@ -2897,7 +2912,7 @@ let h=R.map(r=>'<tr'+(r.y===st.y?' style="background:var(--surface-1)"':'')+'><t
 h+='<tr style="'+RB+'"><td style="font-weight:500;'+RB+'">รวม</td><td style="'+RB+'"></td><td class="r" style="font-weight:500;'+RB+'">'+nf(ts)+'</td><td style="'+RB+'"></td></tr>';$('ytb').innerHTML=h;$('k4').textContent=nf(ts);
 $('payTotal').innerHTML='<div style="font-size:13px;color:var(--text-secondary)">ยอดจ่ายสะสมรวมทุกคน</div><div style="font-size:28px;font-weight:600;line-height:1.3">'+nf(ts)+' <span style="font-size:15px;font-weight:400">บาท</span></div><div style="font-size:13px;color:var(--text-secondary)">'+np+' คน · รวม '+tm+' เดือน (นับรายบุคคลตามเดือนที่เริ่มจ้าง)</div>';
 const cm=SM[CM]+' '+(CY+543);$('payNote').textContent='นับถึงเดือนปัจจุบัน: '+cm+($('incl').checked?' (รวมเดือนนี้)':' (ไม่รวมเดือนนี้)')+' · '+np+' คน · ค่าบริการเดือนละ '+nf(RO)+' บาท/คน (เดือน ม.ค. '+nf(RJ)+' บาท)';$('ptYear').textContent='';
-$('ptb').innerHTML=PP.map((p,i)=>{const on=st.calc.has(i);return '<tr><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+p.col+';margin-right:6px"></span>'+p.n+'</td><td class="r">'+startTxt(i)+'</td><td class="r">'+(on?paidAllMon(i)+' เดือน':'–')+'</td><td class="r">'+(on?nf(paidAllAmt(i)):'–')+'</td><td class="r"><input type="number" class="lvin" data-lv="'+i+'" min="0" step="0.5" inputmode="decimal" placeholder="0" value="'+(LV[i+'|'+st.y]||'')+'" aria-label="จำนวนวันลา '+p.n+'"><div class="lvt" id="lvt'+i+'">รวมทุกปี '+lvAll(i)+' วัน</div></td><td class="r"><button class="sm" data-calc="'+i+'">คำนวณ</button></td></tr>';}).join('');$('lvYear').textContent=be();}
+$('ptb').innerHTML=PP.map((p,i)=>{const on=st.calc.has(i);return '<tr><td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+p.col+';margin-right:6px"></span>'+p.n+'</td><td class="r">'+startTxt(i)+'</td><td class="r">'+(on?paidAllMon(i)+' เดือน':'–')+'</td><td class="r">'+(on?nf(paidAllAmt(i)):'–')+'</td><td class="r"><input type="number" class="lvin" data-lv="'+i+'" min="0" step="0.5" inputmode="decimal" placeholder="0" value="'+(LV[i+'|'+st.y]||'')+'" aria-label="จำนวนวันลา '+p.n+'"><div class="lvt" id="lvt'+i+'">รวมทุกปี '+lvAll(i)+' วัน</div></td><td class="r"><button class="sm" data-calc="'+i+'">คำนวณ</button>'+' <button class="sm" data-del="'+i+'" title="ลบรายชื่อนี้"'+(delArm===i?' style="background:#c0392b;color:#fff;border-color:#c0392b"':'')+'>'+(delArm===i?'ยืนยันลบ?':'ลบ')+'</button>'+'</td></tr>';}).join('');$('lvYear').textContent=be();}
 
 function mchip(i){return '<span class="mchip'+(st.m.has(i)?' on':'')+'" data-m="'+i+'" role="button" tabindex="0">'+SM[i]+'</span>';}
 function rChips(){$('chips').innerHTML=PP.map((p,i)=>{const on=st.c.has(i);return '<span class="chip'+(on?' on':'')+'" data-c="'+i+'"'+(on?' style="background:'+p.col+'"':'')+' role="button" tabindex="0"><i>'+init(p.n)+'</i>'+p.n+'</span>';}).join('');let h='';for(let i=0;i<12;i++)h+=mchip(i);$('mchips').innerHTML=h;$('yr').value=String(be());$('sub').textContent='กลุ่มลูกจ้างพิเศษ โรงพยาบาลพรหมพิราม';$('byear').textContent='· ปี '+be();$('hyear').textContent='· ปี '+be();}
@@ -2919,17 +2934,19 @@ $('yPrev').onclick=()=>setYear(be()-1);
 $('yNext').onclick=()=>setYear(be()+1);
 $('boss').addEventListener('change',()=>{bposShow();rPrev();});
 window.addEventListener('resize',fit);
-document.addEventListener('click',e=>{const t=e.target;const cb=t.closest('[data-calc]');if(cb){st.calc.add(+cb.dataset.calc);rPay();return;}const ch=t.closest('[data-c]');if(ch){const i=+ch.dataset.c;st.c.has(i)?st.c.delete(i):st.c.add(i);st.pg=0;all();return;}const mc=t.closest('.mchip,#bars [data-m]');if(mc){st.m=new Set([+mc.dataset.m]);st.pg=0;all();return;}const x=t.closest('[data-x]');if(x){const k=x.dataset.x;x.checked?st.ex.delete(k):st.ex.add(k);rTab();rKpi();return;}const tr=t.closest('tr[data-k]');if(tr&&!t.closest('input')){st.pk=tr.dataset.k;rTab();rPrev();}});
+document.addEventListener('click',e=>{const t=e.target;const dl=t.closest('[data-del]');if(dl){const i=+dl.dataset.del;if(!PP[i])return;if(PP.length<=1){say('ต้องเหลือรายชื่ออย่างน้อย 1 คน',true);return;}if(delArm===i){clearTimeout(delTimer);removePerson(i);}else armDel(i);return;}const rs=t.closest('#resetPP');if(rs){if(rs.dataset.arm==='1'){try{localStorage.removeItem(KEY);localStorage.removeItem(KEY1);}catch(e){}location.reload();}else{rs.dataset.arm='1';rs.textContent='กดอีกครั้งเพื่อยืนยัน';setTimeout(()=>{rs.dataset.arm='0';rs.textContent='คืนรายชื่อเดิม';},4000);}return;}const cb=t.closest('[data-calc]');if(cb){st.calc.add(+cb.dataset.calc);rPay();return;}const ch=t.closest('[data-c]');if(ch){const i=+ch.dataset.c;st.c.has(i)?st.c.delete(i):st.c.add(i);st.pg=0;all();return;}const mc=t.closest('.mchip,#bars [data-m]');if(mc){st.m=new Set([+mc.dataset.m]);st.pg=0;all();return;}const x=t.closest('[data-x]');if(x){const k=x.dataset.x;x.checked?st.ex.delete(k):st.ex.add(k);rTab();rKpi();return;}const tr=t.closest('tr[data-k]');if(tr&&!t.closest('input')){st.pk=tr.dataset.k;rTab();rPrev();}});
 $('calcAll').onclick=()=>{PP.forEach((p,i)=>st.calc.add(i));rPay();};
 $('calcClr').onclick=()=>{st.calc=new Set();rPay();};
 ['incl'].forEach(i=>$(i).addEventListener('change',()=>{rPay();rKpi();}));
 $('amt').addEventListener('input',()=>{const v=Number($('amt').value)||0;if(selM()===0)RJ=v;else RO=v;rPay();rKpi();rPrev();});
 $('cNone').onclick=()=>{st.c=new Set();st.pg=0;all();};
 $('cAdd').onclick=()=>{const b=$('addbox');b.style.display=b.style.display==='none'?'block':'none';if(b.style.display==='block')$('newn').focus();};
-function addPerson(){const n=$('newn').value.replace(/\s+/g,' ').trim();if(!n){$('addErr').textContent='กรอกชื่อ-สกุลก่อนเพิ่ม';return;}if(PP.some(p=>p.n===n)){$('addErr').textContent='มีชื่อนี้อยู่ในรายการแล้ว';return;}$('addErr').textContent='';PP.push({n:n,col:COL[PP.length%COL.length],co:CO1,b:4,s:(Number($('newy').value)-543)*12+Number($('newm').value)});st.c.add(PP.length-1);$('newn').value='';st.pg=0;all();}
+function addPerson(){const n=$('newn').value.replace(/\s+/g,' ').trim();if(!n){$('addErr').textContent='กรอกชื่อ-สกุลก่อนเพิ่ม';return;}if(PP.some(p=>p.n===n)){$('addErr').textContent='มีชื่อนี้อยู่ในรายการแล้ว';return;}$('addErr').textContent='';const co=$('newco').value.replace(/\s+/g,' ').trim();if(!co){$('addErr').textContent='กรอกชื่อบริษัทก่อนเพิ่ม';return;}PP.push({n:n,col:COL[PP.length%COL.length],co:co,b:4,s:(Number($('newy').value)-543)*12+Number($('newm').value)});st.c.add(PP.length-1);savePP();$('newn').value='';st.pg=0;all();}
 $('cSave').onclick=addPerson;
 $('newn').addEventListener('keydown',e=>{if(e.key==='Enter')addPerson();});
 $('newn').addEventListener('input',()=>{$('addErr').textContent='';});
+$('newco').addEventListener('input',()=>{$('addErr').textContent='';});
+$('newco').addEventListener('keydown',e=>{if(e.key==='Enter')addPerson();});
 $('ckall').onchange=e=>{rows().forEach(r=>e.target.checked?st.ex.delete(r.k):st.ex.add(r.k));rTab();rKpi();};
 $('pv').onclick=()=>{if(st.pg>0){st.pg--;rTab();}};
 $('nx').onclick=()=>{st.pg++;rTab();};
